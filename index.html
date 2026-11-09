@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillSwap - Prasmju un Hobiju Klubs</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --accent: #10b981;
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* Navigācija */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: rgba(15, 23, 42, 0.9);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-badge {
+            background: linear-gradient(135deg, var(--primary), #a855f7);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 18px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Sekcija */
+        .hero {
+            text-align: center;
+            padding: 90px 20px 60px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .tagline {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-muted);
+            margin-bottom: 35px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn-main {
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: white;
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .btn-main:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-main);
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            transition: background 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--border-color);
+        }
+
+        /* Sekcijas & Grid */
+        .container {
+            max-width: 1100px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 40px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 16px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .card-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        /* Statstika un Kalendārs */
+        .stats-box {
+            display: flex;
+            justify-content: space-around;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8));
+            border: 1px solid var(--border-color);
+            padding: 35px;
+            border-radius: 20px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .stat-desc {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Formas sadaļa */
+        .form-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-body);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: white;
+            font-size: 15px;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 80px;
+            font-size: 14px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <span class="logo-badge">🚀💡</span> SkillSwap
+        </div>
+        <ul class="nav-links">
+            <li><a href="#iemesli">Kāpēc mēs?</a></li>
+            <li><a href="#nodarbibas">Nodarbības</a></li>
+            <li><a href="#pieteikties">Pieteikties</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <span class="tagline">Prasmju & Hobiju Klubs Jauniešiem</span>
+        <h1>Attīsti jaunus hobijus un atrodi domubiedrus dzīvajā</h1>
+        <p>Mainies ar prasmēm, apgūsti ko jaunu un atslēdzies no ekrāniem draudzīgā, neformālā vidē starp vienaudžiem.</p>
+        <div class="btn-group">
+            <a href="#pieteikties" class="btn-main">Pievienoties klubam</a>
+            <a href="#nodarbibas" class="btn-secondary">Apskatīt nodarbības</a>
+        </div>
+    </section>
+
+    <div class="container">
+
+        <!-- Iemesli -->
+        <h2 id="iemesli" class="section-title">Ko tu atradīsi SkillSwap?</h2>
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-icon">🎯</div>
+                <h3>Klātienes Meistarstundas</h3>
+                <p>Nodarbības par visdažādākajām tēmām — no foto apstrādes un programmēšanas līdz mākslai un mūzikai.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🤝</div>
+                <h3>Prasmju Apmaiņa</h3>
+                <p>Iemāci citiem to, ko pārzini pats, un pretī saņem bezmaksas zināšanas no citiem jauniešiem.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">💬</div>
+                <h3>Discord Kopiena</h3>
+                <p>Piekļuve slēgtam čatam, kur plānot kopīgus pasākumus, uzdot jautājumus un atrast jaunus draugus.</p>
+            </div>
+        </div>
+
+        <!-- Statistika -->
+        <div class="stats-box">
+            <div>
+                <div class="stat-num">50+</div>
+                <div class="stat-desc">Aktīvi biedri</div>
+            </div>
+            <div>
+                <div class="stat-num">12</div>
+                <div class="stat-desc">Pasākumi mēnesī</div>
+            </div>
+            <div>
+                <div class="stat-num">17.00 €</div>
+                <div class="stat-desc">Mēneša abonements</div>
+            </div>
+        </div>
+
+        <!-- Nodarbību saraksts -->
+        <h2 id="nodarbibas" class="section-title">Tuvākās meistarstundas</h2>
+        <div class="grid-3" style="margin-bottom: 60px;">
+            <div class="card">
+                <span style="color: var(--accent); font-size: 13px; font-weight: bold;">ŠOVOTDIEN / 18:00</span>
+                <h3 style="margin-top: 5px;">Koda pamati & Web dizains</h3>
+                <p>Izveido savu pirmo HTML/CSS mājaslapu no nulles kopā ar piemēriem.</p>
+            </div>
+            <div class="card">
+                <span style="color: var(--primary); font-size: 13px; font-weight: bold;">TREŠDIEN / 17:30</span>
+                <h3 style="margin-top: 5px;">Mobilā fotogrāfija & Lightrooms</h3>
+                <p>Kā ar telefonu uzņemt profesionāla izskata kadrus un tos apstrādāt.</p>
+            </div>
+            <div class="card">
+                <span style="color: #a855f7; font-size: 13px; font-weight: bold;">PIEKTDIE / 19:00</span>
+                <h3 style="margin-top: 5px;">Galda spēļu & Ģitāras vakars</h3>
+                <p>Neformāls vakars kluba telpās jaunu draugu iegūšanai un atpūtai.</p>
+            </div>
+        </div>
+
+        <!-- Pieteikšanās Forma -->
+        <div id="pieteikties" class="form-container">
+            <h2 style="text-align: center; margin-bottom: 10px;">Pieteikties kluba izmēģinājumam</h2>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px; font-size: 14px;">Pirmā nodarbība un iepazīšanās vakars ir bez maksas!</p>
+            
+            <form onsubmit="alert('Paldies! Tavs pieteikums ir saņemts. Sazināsimies Discord/e-pastā!'); return false;">
+                <div class="form-group">
+                    <label>Vārds, Uzvārds</label>
+                    <input type="text" placeholder="Janis Berzins" required>
+                </div>
+                <div class="form-group">
+                    <label>E-pasts</label>
+                    <input type="email" placeholder="vards@epasts.lv" required>
+                </div>
+                <div class="form-group">
+                    <label>Kāda joma tevi visvairāk interesē?</label>
+                    <select>
+                        <option>Dizains un Programmēšana</option>
+                        <option>Māksla un Fotogrāfija</option>
+                        <option>Mūzika un Valodas</option>
+                        <option>Cits hobijs</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-main" style="width: 100%; border: none; cursor: pointer;">Nosūtīt pieteikumu</button>
+            </form>
+        </div>
+
+        <footer>
+            <p>&copy; SkillSwap Hobiju un prasmju klubs jauniešiem.</p>
+            <p style="margin-top: 5px;">Kontakti: info@skillswap.lv | Instagram: @skillswap_lv</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
